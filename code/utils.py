@@ -60,8 +60,11 @@ def process_data_context(path, params):
 		else:
 			target_multi_classification.append(multi_class[0])
 
-	class_weights_multi_class = compute_class_weight('balanced', numpy.unique(target_multi_classification), target_multi_classification)
-	class_weights_binary_class = compute_class_weight('balanced', numpy.unique(target_binary_classification), target_binary_classification)
+	class_weights_multi_class = compute_class_weight(class_weight='balanced', classes=numpy.unique(target_multi_classification), y=target_multi_classification)
+	class_weights_binary_class = compute_class_weight(class_weight='balanced', classes=numpy.unique(target_binary_classification), y=target_binary_classification)
+	
+	# class_weights_multi_class = compute_class_weight('balanced', numpy.unique(target_multi_classification), target_multi_classification)
+	# class_weights_binary_class = compute_class_weight('balanced', numpy.unique(target_binary_classification), target_binary_classification)
 
 	pad_span_multi = enc_multi_span.transform(['none'])
 	pad_span_binary = enc_binary_span.transform(['non_fallacy'])
