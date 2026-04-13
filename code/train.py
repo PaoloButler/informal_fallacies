@@ -15,7 +15,7 @@ from sklearn import preprocessing
 from sklearn import model_selection
 from sklearn.utils.class_weight import compute_class_weight
 
-from transformers import AdamW
+from torch.optim import AdamW # from transformers import AdamW
 from transformers import get_linear_schedule_with_warmup
 
 import config
