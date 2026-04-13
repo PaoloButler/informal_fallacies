@@ -82,8 +82,8 @@ def process_data_context(path, params):
 			input_len = len(inputs)
 			binary_span_class_count.extend([binary_span[item][i]] * input_len)
 			multi_span_class_count.extend([multi_span[item][i]] * input_len)
-	class_weights_multi_seq = compute_class_weight('balanced', numpy.unique(multi_span_class_count) , multi_span_class_count)
-	class_weights_binary_seq = compute_class_weight('balanced', numpy.unique(binary_span_class_count), binary_span_class_count)
+	class_weights_multi_seq = compute_class_weight(class_weight='balanced', classes=numpy.unique(multi_span_class_count) , y=multi_span_class_count)	# updated with keywordargs instead of positional args
+	class_weights_binary_seq = compute_class_weight(class_weight='balanced', classes=numpy.unique(binary_span_class_count), y=binary_span_class_count)	# updated with keywordargs instead of positional args 
 	
 	return sentences, sentences_context, binary_span, multi_span, target_binary_classification, target_multi_classification, enc_binary_span, enc_multi_span, class_weights_multi_class, class_weights_binary_class, class_weights_multi_seq, class_weights_binary_seq
 
@@ -128,8 +128,8 @@ def process_data_no_context(path, params):
 		else:
 			target_multi_classification.append(multi_class[0])
 
-	class_weights_multi_class = compute_class_weight('balanced', numpy.unique(target_multi_classification), target_multi_classification)
-	class_weights_binary_class = compute_class_weight('balanced', numpy.unique(target_binary_classification), target_binary_classification)
+	class_weights_multi_class = compute_class_weight(class_weight='balanced', classes=numpy.unique(target_multi_classification), y=target_multi_classification)
+	class_weights_binary_class = compute_class_weight(class_weight='balanced', classes=numpy.unique(target_binary_classification), y=target_binary_classification)
 
 	pad_span_multi = enc_multi_span.transform(['none'])
 	pad_span_binary = enc_binary_span.transform(['non_fallacy'])
